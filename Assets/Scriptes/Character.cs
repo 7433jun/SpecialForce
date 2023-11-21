@@ -17,6 +17,8 @@ public class Character : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] Material flashMaterial;
 
+    private WaitForSeconds waitForSeconds = new WaitForSeconds(0.125f);
+
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -68,7 +70,7 @@ public class Character : MonoBehaviour
     {
         spriteRenderer.material = flashMaterial;
 
-        yield return new WaitForSeconds(0.125f);
+        yield return waitForSeconds;
 
         spriteRenderer.material = originMaterial;
     }
