@@ -611,6 +611,58 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.34}
   m_Size: {x: 1.45, y: 1.97}
   m_Direction: 0
+--- !u!1 &800003136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 800003138}
+  - component: {fileID: 800003137}
+  m_Layer: 0
+  m_Name: Spawn Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &800003137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800003136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1526e4b57b493249af6208ffd3aaecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPointList:
+  - {fileID: 481513344}
+  - {fileID: 1937199359}
+  - {fileID: 2056939801}
+  - {fileID: 858956317}
+  - {fileID: 121438918}
+  - {fileID: 305359592}
+  monsterPrefab: {fileID: 5282899713741494698, guid: 1deb31310398d444c8dfe63aaf58ad01, type: 3}
+--- !u!4 &800003138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800003136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &858956316
 GameObject:
   m_ObjectHideFlags: 0
@@ -4662,3 +4714,4 @@ SceneRoots:
   - {fileID: 1109897410}
   - {fileID: 1755290654}
   - {fileID: 1392729167}
+  - {fileID: 800003138}

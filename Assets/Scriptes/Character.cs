@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    private Rigidbody2D rigidbody2D;
+    private new Rigidbody2D rigidbody2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Material originMaterial;
