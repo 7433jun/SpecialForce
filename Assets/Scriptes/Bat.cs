@@ -6,6 +6,12 @@ public class Bat : Monster
 {
     protected override void Attack()
     {
+        speed = 0;
+        animator.SetBool("Attack", true);
+    }
+
+    protected override void Death()
+    {
         throw new System.NotImplementedException();
     }
 }
