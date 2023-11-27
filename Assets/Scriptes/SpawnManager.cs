@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] Transform[] spawnPointList;
-    [SerializeField] Monster monsterPrefab;
+    [SerializeField] int rand;
+
+    [SerializeField] List<Monster> monsterList;
+
+    [SerializeField] Factory factory;
 
     private readonly WaitForSeconds waitForSeconds = new WaitForSeconds(3f);
     
     void Start()
     {
-        StartCoroutine(Spawn());
-    }
+        monsterList.Capacity = 10;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StartCoroutine(Spawn());
     }
 
     public IEnumerator Spawn()
     {
         while (true)
         {
-            Instantiate(monsterPrefab, spawnPointList[Random.Range(0, spawnPointList.Length)].position, Quaternion.identity);
+            rand = Random.Range(0, monsterList.Count);
+
+            factory.CreateUnit(monsterList[rand]);
 
             yield return waitForSeconds;
         }

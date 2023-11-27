@@ -14,6 +14,7 @@ public class Character : MonoBehaviour
     private Material originMaterial;
 
     [SerializeField] Vector2 direction;
+    [SerializeField] float health = 100f;
     [SerializeField] float speed;
     [SerializeField] Material flashMaterial;
 
@@ -38,10 +39,18 @@ public class Character : MonoBehaviour
     {
         direction.x = Input.GetAxisRaw("Horizontal");
         direction.y = Input.GetAxisRaw("Vertical");
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+    public void OnHit(float damage)
+    {
+        health -= damage;
+        Debug.Log($"health = {health}");
+
+        StartCoroutine(Flash());
+
+        if (health <= 0)
         {
-            StartCoroutine(Flash());
+            Debug.Log("Death");
         }
     }
 
