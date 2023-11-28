@@ -18,6 +18,10 @@ public class Character : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] Material flashMaterial;
 
+    [SerializeField] List<Weapon> weaponList;
+    [SerializeField] Weapon weapon;
+    int weaponIndex;
+
     private WaitForSeconds waitForSeconds = new WaitForSeconds(0.125f);
 
     void Start()
@@ -26,6 +30,8 @@ public class Character : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originMaterial = spriteRenderer.material;
+
+        weapon = weaponList[weaponIndex];
     }
 
     void FixedUpdate()
@@ -39,6 +45,11 @@ public class Character : MonoBehaviour
     {
         direction.x = Input.GetAxisRaw("Horizontal");
         direction.y = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ChangeWeapon();
+        }
     }
 
     public void OnHit(float damage)
@@ -73,6 +84,17 @@ public class Character : MonoBehaviour
         {
             animator.SetBool("Walk", false);
         }
+    }
+
+    public void ChangeWeapon()
+    {
+        weaponIndex++;
+
+        if (weaponIndex >= weaponList.Count) weaponIndex = 0;
+
+        weapon = weaponList[weaponIndex];
+
+        Debug.Log(weaponList[weaponIndex]);
     }
 
     IEnumerator Flash()
