@@ -6,6 +6,7 @@ public enum STATE
 {
     WALK,
     ATTACK,
+    HIT,
     DIE
 }
 
@@ -15,13 +16,15 @@ public abstract class Monster : MonoBehaviour
     private new Rigidbody2D rigidbody2D;
     private SpriteRenderer spriteRenderer;
     protected Animator animator;
+    [SerializeField] private float power = 10f;
 
     [SerializeField] STATE state;
     [SerializeField] Vector2 direction;
-    [SerializeField] public float health;
-    [SerializeField] protected float speed = 100f;
-    [SerializeField] protected float attack = 10f;
     [SerializeField] Transform characterPosition;
+
+    [SerializeField] protected float attack;
+    [SerializeField] protected float health;
+    [SerializeField] protected float speed = 100f;
 
 
     protected virtual void Start()
@@ -42,10 +45,20 @@ public abstract class Monster : MonoBehaviour
                 break;
             case STATE.ATTACK: Attack();
                 break;
+            case STATE.HIT:
+                break;
             case STATE.DIE: Death();
                 break;
             default:
                 break;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(OnHit(attack));
         }
     }
 
@@ -77,6 +90,21 @@ public abstract class Monster : MonoBehaviour
     public void Damage()
     {
         characterPosition.GetComponent<Character>().OnHit(attack);
+    }
+
+    public IEnumerator OnHit(float damage)
+    {
+        state = STATE.HIT;
+
+        health -= damage;
+
+        rigidbody2D.velocity = Vector2.zero;
+
+        rigidbody2D.AddForce(-direction * power, ForceMode2D.Force);
+
+        yield return new WaitForSeconds(0.5f);
+
+        state = STATE.WALK;
     }
 
     protected abstract void Attack();
