@@ -261,8 +261,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6a8077ef38c944badca0424e11dde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  power: 10
   state: 0
   direction: {x: 0, y: 0}
-  speed: 100
-  attack: 15
   characterPosition: {fileID: 0}
+  attack: 15
+  health: 0
+  speed: 100
+  sound:
+    audioClip:
+    - {fileID: 8300000, guid: 26b4ccc679daa3847ab1853c1a1ffa15, type: 3}

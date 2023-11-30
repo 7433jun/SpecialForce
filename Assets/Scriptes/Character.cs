@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     [SerializeField] Weapon weapon;
     int weaponIndex;
 
-    private WaitForSeconds waitForSeconds = new WaitForSeconds(0.125f);
+    
 
     void Start()
     {
@@ -101,7 +101,7 @@ public class Character : MonoBehaviour
     {
         spriteRenderer.material = flashMaterial;
 
-        yield return waitForSeconds;
+        yield return CoroutineCache.waitForSeconds(0.125f);
 
         spriteRenderer.material = originMaterial;
     }
