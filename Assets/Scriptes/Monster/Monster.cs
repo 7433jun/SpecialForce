@@ -12,7 +12,6 @@ public enum STATE
 
 public abstract class Monster : MonoBehaviour
 {
-    private float initSpeed;
     private new Rigidbody2D rigidbody2D;
     private SpriteRenderer spriteRenderer;
     protected Animator animator;
@@ -28,14 +27,12 @@ public abstract class Monster : MonoBehaviour
 
     [SerializeField] Sound sound = new Sound();
 
-    protected virtual void Start()
+    protected void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         characterPosition = GameObject.Find("Character").transform;
-
-        initSpeed = speed;
     }
 
     protected virtual void FixedUpdate()
@@ -77,8 +74,6 @@ public abstract class Monster : MonoBehaviour
 
     protected void Move()
     {
-        speed = initSpeed;
-
         animator.SetBool("Attack", false);
 
         direction = new Vector2(characterPosition.position.x - transform.position.x, characterPosition.position.y - transform.position.y);
@@ -97,17 +92,29 @@ public abstract class Monster : MonoBehaviour
     {
         state = STATE.HIT;
 
+        rigidbody2D.velocity = Vector2.zero;
+
         health -= damage;
 
-        AudioManager.instance.Sound(sound.audioClip[0]);
+        if (health <= 0)
+        {
+            state = STATE.DIE;
 
-        rigidbody2D.velocity = Vector2.zero;
+            yield break;
+        }
+
+        AudioManager.instance.Sound(sound.audioClip[0]);
 
         rigidbody2D.AddForce(-direction * power, ForceMode2D.Force);
 
         yield return CoroutineCache.waitForSeconds(0.25f);
 
         state = STATE.WALK;
+    }
+
+    public void Release()
+    {
+        Destroy(gameObject);
     }
 
     protected abstract void Attack();
@@ -118,7 +125,10 @@ public abstract class Monster : MonoBehaviour
     {
         if (collision.CompareTag("Character"))
         {
-            state = STATE.ATTACK;
+            if (state != STATE.DIE)
+            {
+                state = STATE.ATTACK;
+            }
         }
     }
 
@@ -126,7 +136,10 @@ public abstract class Monster : MonoBehaviour
     {
         if (collision.CompareTag("Character"))
         {
-            state = STATE.WALK;
+            if (state != STATE.DIE)
+            {
+                state = STATE.WALK;
+            }
         }
     }
 }
